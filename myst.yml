@@ -1,0 +1,28 @@
+version: 1
+project:
+  title: ORMIR Coding Guidelines
+  toc:
+    - file: index.md
+    - file: basic.md
+      children:
+      - file: project.md
+      - file: python.md
+      - file: documentation.md
+      - file: jupyter.md
+    - file: intermediate.md
+      children: 
+      - file: package_license.md
+      - file: github.md
+      - file: publishing.md
+    - file: advanced.md
+      children:
+      - file: code_review.md
+site:
+  nav:
+    - title: Go to ORMIR.org
+      url: https://www.ormir.org/
+  options:
+    logo: figures/logo.png
+    favicon: figures/favicon.png
+    folders: true
+  template: book-theme
