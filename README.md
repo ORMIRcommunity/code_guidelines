@@ -1,1 +1,1 @@
-# coding_guidelines
+# code guidelines
