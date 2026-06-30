@@ -1,17 +1,17 @@
 # Contributing to an ORMIR project
 
-🚧 Webpage under construction 🚧
-
 In the ORMIR community, we host our projects on GitHub.
 
 On this page, you will learn the workflow for **contributing to a project**, whether you want to improve the documentation, report a bug, or add new features to a Python package.
 
 
-If you are an **new contributor**, do not worry! In this page you will find all the **step-by-step information** on how to do it!
+If you are a **new contributor**, don't worry! This guide walks you through the entire process **step by step**, from setting up the project on your computer to opening your first pull request.
 
-If you are an **experienced contributor**, you might also be interested into some of the **best practice choices** we made, such as: [Why do I need to fork the repository?](#why_fork), [How many branches should I open?](#n_branches), 
-Also, if you think that your case might require a different workflow, please [contact the project coordinators](https://www.ormir.org/groups.html).
-
+If you are an **experienced contributor**, you may also be interested in some of the **best practices** we follow, such as: 
+[Why do I need to fork the repository?](#why_fork), 
+[How may branches should I create?](#n_branches), and
+[How often should I commit?](#n_commits). 
+Also, if you think that your contribution requires a different workflow, please [contact the project coordinators](https://www.ormir.org/groups.html).
 
 ---
 
@@ -46,6 +46,8 @@ flowchart LR
 ```
 Let's see what these mean and how to do it!
 
+---
+
 (fork)=
 ### 1. Make the project your own – fork it
 ***Forking** means **creating a copy** of someone else's repository in your GitHub account*
@@ -71,6 +73,7 @@ A new window will appear. If you want, you can customize the repository name. Th
 
 You will now see your fork – that is, a copy of the original repository – in your GitHub account.
 
+---
 
 (clone)=
 ### 2. Bring the project to your computer — clone your fork
@@ -83,7 +86,7 @@ Here is how to clone the repository that you have just forked using GitHub Deskt
 :::{tab-item} GitHub Desktop
 :sync: tab1
 
-1. In in the newly forked repository in your account, click the green button `<> Code` and then `Open with GitHub Desktop`:
+In in the newly forked repository in your account, click the green button `<> Code` and then `Open with GitHub Desktop`:
 ```{figure} figures/gh_clone1.png
 :label: clone1
 :alt: clone1 
@@ -92,7 +95,7 @@ Here is how to clone the repository that you have just forked using GitHub Deskt
 :figclass: with-border
 ```
 
-2. GitHub Desktop will launch and open a window similar to this one:
+GitHub Desktop will launch and open a window similar to this one:
 
 ```{figure} figures/gh_clone2.png
 :label: clone2
@@ -106,8 +109,6 @@ You will see two locations:
 - At the top, the repository's location on GitHub.
 - At the bottom, the location where the repository will be downloaded on your computer.
 If you would like to change the download location, click `Choose` and select a different folder. When you are ready, click `Clone` to download the repository to your computer.
-
-
 :::
 
 :::{tab-item} Git
@@ -126,13 +127,14 @@ where `https://github.com/your-username/project.git` is the URL you just copied
 
 
 :::{note} Why do I need to fork the repository? 
+:class:dropdown
 
 (why_fork)=
 If you are contributing to a repository that you do ***not* own** or do ***not* have write access** to, you will typically **fork and then clone** it. 
 This is considered good practice because forking creates your own copy of the project under your GitHub account, giving you a safe, independent workspace where you can freely make changes, experiment, and test ideas without affecting the original project.
-It also keeps the **original repository clean and manageable** — without forks, all contributors would create branches directly in it, quickly cluttering the repository with many unused branches ([see what a branch is below](#branch)). This also makes things **easier for maintainers**, who can focus on reviewing pull requests ([see what a pull request is below](#pr)) rather than managing other people's branches.
+It also keeps the **original repository clean and manageable** — without forks, all contributors would create branches directly in it, quickly cluttering the repository with many unused branches (see what a [branch](#branch) is below). This also makes things **easier for maintainers**, who can focus on reviewing pull requests (see what a [pull request](#pr) is below) rather than managing other people's branches.
 
-On the other side, if you **own** the repository or **have write access** to it (that is, most likely you are one of the maintainers), you can usually **clone it directly** without creating a fork.
+On the other side, if you **own** the repository or **have write access** to it (that is, most likely you are one of the maintainers), you can usually **clone it directly** without creating a fork. 
 :::
 
 ---
@@ -140,16 +142,16 @@ On the other side, if you **own** the repository or **have write access** to it 
 ## Contribute
 
 It's finally time to make the changes to the repository! To do so, there are five consecutive steps:  
-[1. Create the workspace — open a branch](#branch)  
+[1. Setup the workspace — create a branch](#branch)  
 [2. Make your changes](#change)  
 [3. Save your work — commit](#commit)  
 [4. Send it to your repository in GitHub — push to your fork](#push)  
-[5. Propose your changes — open a Pull Request](#pr)   
+[5. Propose your changes — open a pull request](#pr)   
 
 ```mermaid
 flowchart LR
 
-    branch[1.Open<br>a branch]
+    branch[1.Create<br>a branch]
     changes[2.Make<br>the change]
     commit[3.Commit<br>the change]
     push[4.Push<br>the change]
@@ -168,17 +170,51 @@ flowchart LR
 
 It's simpler than it looks. Let's go step by step.
 
+---
 
 (branch)=
-### 1. Create the workspace — open a branch
+### 1. Setup the workspace — create a branch
 
 *A **branch** is a **copy of the project** dedicated to a specific contribution, topic, or fix*
+
+(sync)=
+Before creating a new branch, you have to make sure that your **fork** is **up to date** with the original repository. 
+This ensures that your branch starts from the latest version of the project and helps avoid merge conflicts later on.
+If this is your **first contribution** and you have just forked and cloned the repository, you can skip this step because your fork is **already synchronized** with the original repository and you can proceed directly to [creating your branch](#create-branch).
 
 ::::{tab-set}
 :::{tab-item} GitHub Desktop
 :sync: tab1
 
-In the top bar, click on `Current branch`. Then click on `New Branch`:
+Go to your fork on the GitHub website and click `Sync fork`:
+```{figure} figures/gh_sync_fork.png
+:label: gh_sync_fork
+:alt: gh_sync_fork
+:width: 100%
+:align: center
+:figclass: with-border
+```
+:::
+:::{tab-item} Git
+:sync: tab2
+
+```bash
+git checkout main
+git fetch upstream
+git merge upstream/main
+git push origin main
+```
+:::
+::::
+
+(create-branch)=
+Let's **create a new branch**!
+
+::::{tab-set}
+:::{tab-item} GitHub Desktop
+:sync: tab1
+
+Click `Current branch` in the top toolbar, then select `New Branch`:
 
 ```{figure} figures/gh_branch1.png
 :label: gh_branch1
@@ -188,7 +224,11 @@ In the top bar, click on `Current branch`. Then click on `New Branch`:
 :figclass: with-border
 ```
 
-In the new window, write the name of your branch and click on `Create Branch`:
+In the dialog that opens, enter a **short, descriptive name** for your branch that reflects the task you are working on.
+For example, *add-contributing-guide* or *improve-unit-tests* clearly indicate the purpose of the branch. 
+Avoid generic names such as *changes* or *branch1*, which do not convey what the branch is intended for.
+
+Click `Create Branch`:
 
 ```{figure} figures/gh_branch2.png
 :label: gh_branch2
@@ -198,7 +238,7 @@ In the new window, write the name of your branch and click on `Create Branch`:
 :figclass: with-border
 ```
 
-You will see now in the top bar the name of the branch under `Current branch`.
+The name of the branch will appear under `Current Branch` in the top toolbar, indicating that it is now your active working branch.
 
 :::
 :::{tab-item} Git
@@ -210,34 +250,46 @@ git checkout -b my-branch-name
 ::::
 
 
-:::{note} Best practices about branches
-
+:::{note} How may branches should I create? 
+:class:dropdown
 (n_branches)=
 
-- The **name** of the branch should be **short** and **focused**, related to the task that you will work on.
-
-- Technically, you can create as many branches as you want! 
-However, it is **best practice** to open **one branch per task**. A task is one bug fix, one new feature, one documentation update, one typo fix. It is not recommended to mix unrelated changes in the same branch.
-
-- If this is not your first contribution to the project, do not forget to **sync your fork** before creating a new branch! 
-
+Technically, you can create as many branches as you want! 
+However, **best practice** is to open **one branch per task**. A task is one bug fix, one new feature, one documentation update, one typo fix. It is not recommended to mix unrelated changes in the same branch.
 :::
 
-
+---
 
 (change)=
 ### 2. Make your changes
 
-It's finally time to make your changes! 
+It's finally time to make your changes! Open the project in your favorite editor, such as Visual Studio Code or JupyterLab, and edit existing files or add new ones.
+
+---
 
 (commit)=
 ### 3. Save your work — commit
 
-***Committing** means **saving your changes**, together with a short message describing what you changed.*
+***Committing** means **saving your changes** at a specific moment in time on your computer*
 
 ::::{tab-set}
 :::{tab-item} GitHub Desktop
 :sync: tab1
+
+In the left panel, you will see all the files that have been modified. Review the list and decide which changes you want to include in the commit by selecting or deselecting individual files. If you want that a file will never be tracked (for example, temporary files), right-click on it and select `Add to .gitignore`.
+
+  
+```{figure} figures/gh_gitignore.png
+:label: gh_gitignore
+:alt: gh_gitignore
+:width: 50%
+:align: center
+:figclass: with-border
+```
+
+Next, write a **commit message**. The message should briefly describe the changes you are saving, for example, *Fix typo in installation guide* or *Add function to threshold image*. Avoid vague messages such as *Some changes* or *Fixed stuff*, as they do not explain what you actually modified. By convention, commit messages start with a verb in the **present (imperative) form**, such as *Fix*, *Add*, *Update*, or *Improve*.
+
+If needed, you can also add a longer **description** to provide additional context about the changes.
 
 ```{figure} figures/gh_commit.png
 :label: gh_commit
@@ -247,7 +299,9 @@ It's finally time to make your changes!
 :figclass: with-border
 ```
 
+Press the button to commit your files.
 :::
+
 :::{tab-item} Git
 :sync: tab2
 ```bash
@@ -257,24 +311,37 @@ git commit -m "describe what you changed"
 :::
 ::::
 
-:::{note} Best practices about committing
-
-(commit)=
+:::{note} How often should I commit?
+:class:dropdown
+(n_commits)=
 
 - Each commit should contain changes related to **one logical task**
 - **Commit often**. Do not wait until you finished everything! This makes it easier to review your work and undo mistakes, if necessary
-- The **message** should briefly **describe** what changed, such as *Fix typo in installation guide* or *Add function to threshold image*. Avoid too general messages, such as *Some changes*, or *Fixed stuff*. Note that the verb is usually at the **present** form.
-
 :::
 
+---
 
 (push)=
 ### 4. Send it to your repository in GitHub — push to your fork
+
+*A **push** **sends the commits** you have made on your computer **to the remote repository on GitHub**, making them available to others*
+
 ::::{tab-set}
 :::{tab-item} GitHub Desktop
 :sync: tab1
-Coming soon!
+
+To push your commits, simply click `Push origin` in the top toolbar or in the central panel:
+
+```{figure} figures/gh_push.png
+:label: gh_push
+:alt: gh_push
+:width: 60%
+:align: center
+:figclass: with-border
+```
+
 :::
+
 :::{tab-item} Git
 :sync: tab2
 ```bash
@@ -283,28 +350,67 @@ git push origin my-fix
 :::
 ::::
 
+
+---
+
 (pr)=
 ### 5. Propose your changes — open a pull request
 
+*A **pull request (PR)** is how you **ask the maintainers** of a project **to review and add your changes** to the project*
+
+Go to your fork on **GitHub.com** and click `Compare & pull request`.  
+
+```{figure} figures/gh_pr1.png
+:label: gh_pr1
+:alt: gh_pr1
+:width: 60%
+:align: center
+:figclass: with-border
+```
+Add a **title** that briefly summarizes your contribution and a **description** explaining what you changed and why. When you are ready, click `Create pull request`:
+
+```{figure} figures/gh_pr2.png
+:label: gh_pr2
+:alt: gh_pr2
+:width: 60%
+:align: center
+:figclass: with-border
+```
 
 ---
 
 ## What's next?
 
+(collab)=
+###  1. Collaborate with the maintainer
+The maintainers (typically the [project coordinator](https://www.ormir.org/groups.html)) will receive a notification of your pull requests and **review your contribution**. 
+If necessary, they may ask you to provide further clarification or make additional changes.
+If so, simply make the requested changes in the **same branch**, commit them, and push them to GitHub. The pull request will update automatically.
+Once the review is complete, the maintainers will **merge your contribution** into the project.
+
+
 ```mermaid
 flowchart LR
 
-    subgraph you["You"]
-      pr[5.Send a<br>pull request]
+    subgraph you [Your workflow]
+        branch[1.Create<br>a branch]
+        changes[2.Make<br>the change]
+        commit[3.Commit<br>the change]
+        push[4.Push<br>the change]
+        pr[5.Send a<br>pull request]
     end
     
-    subgraph maintainer["The maintainer"]
-      review[Review<br>the change]
-      merge[Merge<br>the change]
+    subgraph maintainer [Maintainer workflow]
+      review[Review your<br>contribution]
+      merge[Merge your<br>contribution]
     end
   
+    branch --> changes
+    changes --> commit
+    commit --> push
+    push --> pr
     pr --> review
-    review --> pr 
+    review -. Changes requested.->  changes 
     review --> merge
    
     classDef yellow fill:#ffd42aff,stroke:#d6b656,stroke-width:2px // yellow    
@@ -313,55 +419,17 @@ flowchart LR
       class review,merge blue
     classDef gray fill:#F8F8F8,stroke:#EEEEEE,stroke-width:2px
       class you,maintainer gray
+
     
 ```
 
-*After* your pull request has been merged, you can **delete the branch** to keep the project clean.
+###  2. Get ready your next contribution!
 
-For the **following contributions**, you will have only to create a new branch, make changes, commit, push, and send a pull request.
+After your pull request has been merged, you *can* **delete the branch** to keep the project clean.
 
----
-
-## Summary
-
-In this guide, you have learned how to make your **first contribution** to an ORMIR project on GitHub. Another way to represent the whole process is the following:
-
-(mermaid_gh_workflow)=
-```mermaid
----
-config:
-  logLevel: 'debug'
-  theme: 'base'
-  gitGraph:
-    showBranches: true
-    showCommitLabel: true
-    mainBranchName: 'repo_on_ORMIR_GitHub'
----
-      gitGraph
-        commit id:"fork"
-        
-        branch repo_on_my_GitHub
-        commit id:"clone"
-
-        branch repo_on_my_computer
-        commit id:"create branch"
-
-        branch working_branch
-        commit id:"make changes"
-        commit id:"commit"
-        commit id:"push"
-
-        checkout repo_on_my_GitHub 
-        
-        merge working_branch 
-        commit id:"send pull request"
-
-        checkout repo_on_ORMIR_GitHub
-        merge repo_on_my_GitHub 
-        commit id:"review"
-        commit id:"merge"
-        commit id:"thanks for your contribution!"
-```
+When you are ready to **contribute again**, remember to [sync your fork](#sync) with the original repository before creating a new branch. 
+Then, simply follow the same workflow:
+[create a new branch](#branch), [make your changes](#change), [commit](#commit), [push](#push), [open a pull request](#pr), and [collaborate with the maintainer](#collab)!
 
 
 
