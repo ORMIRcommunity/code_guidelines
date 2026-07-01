@@ -121,7 +121,7 @@ If you would like to change the download location, click `Choose` and select a d
 git clone https://github.com/your-username/project.git
 cd project
 ```
-where `https://github.com/your-username/project.git` is the URL you just copied
+where `https://github.com/your-username/project.git` is the URL you just copied and `project` is the local path of your project
 :::
 ::::
 
@@ -199,9 +199,16 @@ Go to your fork on the GitHub website and click `Sync fork`:
 :sync: tab2
 
 ```bash
+# Make sure you are on the main branch
 git checkout main
+
+# Get the latest changes from the official repo (upstream)
 git fetch upstream
+
+# Merge upstream changes into your local main branch
 git merge upstream/main
+
+# Push the updated main branch to your fork (origin)
 git push origin main
 ```
 :::
@@ -244,8 +251,10 @@ The name of the branch will appear under `Current Branch` in the top toolbar, in
 :::{tab-item} Git
 :sync: tab2
 ```bash
+# Create a new branch AND switch to it
 git checkout -b my-branch-name
 ```
+where `my-branch-name` is the name of the branch.
 :::
 ::::
 
@@ -305,10 +314,19 @@ Press the button to commit your files.
 :::{tab-item} Git
 :sync: tab2
 ```bash
-git add .
+# Show which files have changed (to review what will be committed)
+git status
+
+# Stage some specific files for commit
+git add file1 file2 file3
+
+# Create a commit with a descriptive message
 git commit -m "describe what you changed"
 ```
 :::
+where `file1` `file2` etc. are the files you want to commit. In alternative, you can also use `git add .` to commit all changes in the current directory (use with care).
+# 
+
 ::::
 
 :::{note} How often should I commit?
@@ -344,9 +362,12 @@ To push your commits, simply click `Push origin` in the top toolbar or in the ce
 
 :::{tab-item} Git
 :sync: tab2
+
 ```bash
-git push origin my-fix
+# Push the branch to your fork on GitHub (first push only)
+git push -u origin my-branch-name
 ```
+where `my-branch-name` is the name of your branch. After the first push, you can simply use `git push`.
 :::
 ::::
 
@@ -383,7 +404,7 @@ Add a **title** that briefly summarizes your contribution and a **description** 
 
 (collab)=
 ###  1. Collaborate with the maintainer
-The maintainers (typically the [project coordinator](https://www.ormir.org/groups.html)) will receive a notification of your pull requests and **review your contribution**. 
+The maintainers (typically the [project coordinator](https://www.ormir.org/groups.html)) will receive a notification of your pull request and **review your contribution**. 
 If necessary, they may ask you to provide further clarification or make additional changes.
 If so, simply make the requested changes in the **same branch**, commit them, and push them to GitHub. The pull request will update automatically.
 Once the review is complete, the maintainers will **merge your contribution** into the project.
